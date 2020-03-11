@@ -113,12 +113,10 @@ class App extends React.Component {
       .get("http://localhost:5000/elements/")
       .then(response => {
         this.setState(prev => {
+          const tasks = Object.assign({}, prev.tasks, ...response.data);
           return {
             ...prev,
-            tasks: {
-              ...prev.tasks,
-              ...response.data,
-            },
+            tasks
           };
         });
       })
