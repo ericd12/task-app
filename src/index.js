@@ -113,7 +113,12 @@ class App extends React.Component {
       .get("http://localhost:5000/elements/")
       .then(response => {
         this.setState(prev => {
-          const tasks = Object.assign({}, prev.tasks, ...response.data);
+          const tasks = Object.assign({}, prev.tasks, ...response.data.reduce((all, one) => {
+            return {
+              ...all,
+              [one._id]: one
+            }
+          }, {}));
           return {
             ...prev,
             tasks
