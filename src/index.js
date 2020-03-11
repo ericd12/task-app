@@ -4,7 +4,6 @@ import "@atlaskit/css-reset";
 import styled from "styled-components";
 import { DragDropContext } from "react-beautiful-dnd";
 import axios from "axios";
-import initialData from "./initial-data";
 import Column from "./column";
 
 const Container = styled.div`
@@ -12,9 +11,39 @@ const Container = styled.div`
 `;
 
 class App extends React.Component {
-  state =
-    // elements: [],
-    initialData;
+  state = {
+    elements: [],
+    tasks: {
+      "5e4f069d36b19abd04800eae": {
+        _id: "5e4f069d36b19abd04800eae",
+        elementnumber: "101",
+        elementlabel: "101label",
+        elementDescription: "101desc",
+        elementFormat: "Video",
+        elementDuration: "10:25",
+        elementCategory: "Timing",
+        elementSubCategory: "101Subcat",
+        elementMarket: "Memory Care",
+        elementCogRating: 5,
+        elementPhysRating: 6,
+        elementLink: "https://www.google.com/",
+        createdAt: "2020-02-25T21:51:31.739Z",
+        updatedAt: "2020-02-25T21:52:53.316Z",
+      },
+    },
+    columns: {
+      "column-1": {
+        id: "column-1",
+        title: "Elements",
+        taskIds: ["5e4f069d36b19abd04800eae"],
+      },
+      "column-2": {
+        id: "column-2",
+        title: "Track List",
+        taskIds: [],
+      },
+    },
+  };
 
   componentDidMount() {
     axios
@@ -97,17 +126,18 @@ class App extends React.Component {
   };
 
   render() {
-    // const col = this.state.initialData
+    const { tasks, columns } = this.state;
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
         <Container>
-          {this.state.columnOrder.map(columnId => {
-            const column = this.state.columns[columnId];
-            const tasks = column.taskIds.map(
-              taskId => this.state.tasks[taskId]
+          {Object.values(columns).map(column => {
+            return (
+              <Column
+                key={column.id}
+                column={column}
+                tasks={column.taskIds.map(taskId => tasks[taskId])}
+              />
             );
-
-            return <Column key={column.id} column={column} tasks={tasks} />;
           })}
         </Container>
       </DragDropContext>

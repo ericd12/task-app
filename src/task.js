@@ -20,7 +20,7 @@ const Task = ({ task, index }) => {
           ref={provided.innerRef}
           isDragging={snapshot.isDragging}
         >
-          {task.content}
+          {task.elementlabel}
         </Container>
       )}
     </Draggable>
