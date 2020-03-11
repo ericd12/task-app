@@ -28,7 +28,7 @@ const TaskList = styled.div`
 
 const InnerList = ({ tasks }) => {
   return tasks.map((task, index) => (
-    <Task key={`${task.id}-${index}`} index={index} task={task} />
+    <Task key={`${task._id}-${index}`} index={index} task={task} />
   ));
 };
 
