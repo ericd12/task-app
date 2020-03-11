@@ -12,7 +12,6 @@ const Container = styled.div`
 
 class App extends React.Component {
   state = {
-    elements: [],
     tasks: {
       "1": {
         _id: "1",
@@ -113,8 +112,15 @@ class App extends React.Component {
     axios
       .get("http://localhost:5000/elements/")
       .then(response => {
-        console.log({ response });
-        this.setState({ elements: response.data });
+        this.setState(prev => {
+          return {
+            ...prev,
+            tasks: {
+              ...prev.tasks,
+              ...response.data,
+            },
+          };
+        });
       })
       .catch(error => {
         console.log(error);
