@@ -20,34 +20,33 @@ const Title = styled.h3`
 
 const TaskList = styled.div`
   padding: 8px;
-  background-color: ${props => (props.isDraggingOver ? "#f5fbfc" : "white")};
+  min-height: 100 px;
   flex-grow: 1;
-  min-height: 400px;
-  max-height: 200px;
+  background-color: ${props => (props.isDraggingOver ? "lightblue" : "white")};
 `;
 
-const InnerList = ({ tasks }) => {
-  return tasks.map((task, index) => (
-    <Task key={`${task._id}-${index}`} index={index} task={task} />
-  ));
-};
-
-const Column = ({ column, tasks }) => {
+const Column = ({ id, column }) => {
   return (
     <Container>
-      <Title>{column.title}</Title>
-      <Droppable droppableId={column.id}>
-        {(provided, snapshot) => (
-          <TaskList
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-            isDraggingOver={snapshot.isDraggingOver}
-          >
-            <InnerList tasks={tasks} />
-            {provided.placeholder}
-          </TaskList>
-        )}
-      </Droppable>
+      <Title>{column.name}</Title>
+      <div style={{ margin: 2 }}>
+        <Droppable key={id} droppableId={id}>
+          {(provided, snapshot) => {
+            return (
+              <TaskList
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                // isDraggingOver={snapshot.isDraggingOver}
+              >
+                {column.items.map((task, index) => {
+                  return <Task {...{ task, index, key: task._id }} />;
+                })}
+                {provided.placeholder}
+              </TaskList>
+            );
+          }}
+        </Droppable>
+      </div>
     </Container>
   );
 };
