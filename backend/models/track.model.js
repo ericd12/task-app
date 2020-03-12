@@ -1,19 +1,22 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require("mongoose");
 
+const { Schema } = mongoose;
 
-const trackSchema = new Schema({
-        trackname: {
-          type: String,
-          required: true,
-          unique: true,
-          trim: true,
-          minlength: 3
-        },
-      }, {
-        timestamps: true,
-      });
+const trackSchema = new Schema(
+  {
+    trackname: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      minlength: 3,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const Track = mongoose.model('Track', trackSchema);
+const Track = mongoose.model("Track", trackSchema);
 
 module.exports = Track;

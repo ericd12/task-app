@@ -13,11 +13,10 @@ const Container = styled.div`
 const Task = ({ task, index }) => {
   return (
     <Draggable draggableId={task._id} index={index}>
-      {(provided, snapshot) => (
+      {({ draggableProps, dragHandleProps, innerRef }, snapshot) => (
         <Container
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
+          {...{ ...draggableProps, ...dragHandleProps }}
+          ref={innerRef}
           isDragging={snapshot.isDragging}
         >
           {task.elementlabel}
