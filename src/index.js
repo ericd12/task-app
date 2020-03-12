@@ -5,23 +5,25 @@ import ReactDOM from "react-dom";
 import styled from "styled-components";
 import "@atlaskit/css-reset";
 import Column from "./column";
-import AddItemForm from "./AddItemForm";
+// import AddItemForm from "./AddItemForm";
 
 const Container = styled.div`
   display: flex;
-`;
-
+  justify-content: left;
+  width: 95%;
+  
+  `;
 
 const App = () => {
   const [columns, setColumns] = useState({
     "column-1": {
       name: "Elements",
       items: [
-        { _id: "task-1", elementlabel: "content-1" },
-        { _id: "task-2", elementlabel: "content-2" },
-        { _id: "task-3", elementlabel: "content-3" },
-        { _id: "task-4", elementlabel: "content-4" },
-        { _id: "task-5", elementlabel: "content-5" },
+        // { _id: "task-1", elementlabel: "content-1" },
+        // { _id: "task-2", elementlabel: "content-2" },
+        // { _id: "task-3", elementlabel: "content-3" },
+        // { _id: "task-4", elementlabel: "content-4" },
+        // { _id: "task-5", elementlabel: "content-5" },
       ],
     },
     "column-2": {
@@ -29,6 +31,8 @@ const App = () => {
       items: [],
     },
   });
+
+  
 
   const onDragEnd = ({ source, destination }) => {
     if (!destination) {
@@ -93,11 +97,11 @@ const App = () => {
 
     getData();
   }, []);
-
+console.log(columns)
   return (
-    <div>
-      <AddItemForm {...{ columns, setColumns }} />
-      <Container>
+    <Container>
+      {/* <AddItemForm {...{ columns, setColumns }} /> */}
+      {/* <Container> */}
         <DragDropContext
           onDragEnd={onDragEnd}
         >
@@ -105,8 +109,8 @@ const App = () => {
             return <Column {...{ id, column, key: id }} />;
           })}
         </DragDropContext>
-      </Container>
-    </div>
+      {/* </Container> */}
+    </Container>
   );
 };
 
