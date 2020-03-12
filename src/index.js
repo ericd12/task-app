@@ -11,6 +11,7 @@ const Container = styled.div`
   display: flex;
 `;
 
+
 const App = () => {
   const [columns, setColumns] = useState({
     "column-1": {
@@ -28,6 +29,51 @@ const App = () => {
       items: [],
     },
   });
+
+  const onDragEnd = ({ source, destination }) => {
+    if (!destination) {
+      return;
+    }
+
+    if (source.droppableId !== destination.droppableId) {
+
+
+      setColumns(prev => {
+        const sourceColumn = prev[source.droppableId];
+        const destColumn = prev[destination.droppableId];
+        const sourceItems = [...sourceColumn.items];
+        const destItems = [...destColumn.items];
+        const [removed] = sourceItems.splice(source.index, 1);
+        destItems.splice(destination.index, 0, removed);
+        return {
+          ...prev,
+          [source.droppableId]: {
+            ...sourceColumn,
+            items: sourceItems,
+          },
+          [destination.droppableId]: {
+            ...destColumn,
+            items: destItems,
+          },
+        }
+      });
+    } else {
+
+      setColumns(prev => {
+        const column = prev[source.droppableId];
+        const copiedItems = [...column.items];
+        const [removed] = copiedItems.splice(source.index, 1);
+        copiedItems.splice(destination.index, 0, removed);
+        return {
+          ...prev,
+          [source.droppableId]: {
+            ...column,
+            items: copiedItems,
+          },
+        }
+      });
+    }
+  }
 
   useEffect(() => {
     const getData = () => {
@@ -53,43 +99,7 @@ const App = () => {
       <AddItemForm {...{ columns, setColumns }} />
       <Container>
         <DragDropContext
-          onDragEnd={({ source, destination }) => {
-            if (!destination) {
-              return;
-            }
-
-            if (source.droppableId !== destination.droppableId) {
-              const sourceColumn = columns[source.droppableId];
-              const destColumn = columns[destination.droppableId];
-              const sourceItems = [...sourceColumn.items];
-              const destItems = [...destColumn.items];
-              const [removed] = sourceItems.splice(source.index, 1);
-              destItems.splice(destination.index, 0, removed);
-              setColumns({
-                ...columns,
-                [source.droppableId]: {
-                  ...sourceColumn,
-                  items: sourceItems,
-                },
-                [destination.droppableId]: {
-                  ...destColumn,
-                  items: destItems,
-                },
-              });
-            } else {
-              const column = columns[source.droppableId];
-              const copiedItems = [...column.items];
-              const [removed] = copiedItems.splice(source.index, 1);
-              copiedItems.splice(destination.index, 0, removed);
-              setColumns({
-                ...columns,
-                [source.droppableId]: {
-                  ...column,
-                  items: copiedItems,
-                },
-              });
-            }
-          }}
+          onDragEnd={onDragEnd}
         >
           {Object.entries(columns).map(([id, column]) => {
             return <Column {...{ id, column, key: id }} />;
