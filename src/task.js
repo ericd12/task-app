@@ -1,3 +1,4 @@
+
 import React from "react";
 import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
@@ -37,13 +38,17 @@ const Task = ({
           {...{ ...draggableProps, ...dragHandleProps, isDragging }}
           ref={innerRef}
         >
-          <P>{task.elementnumber}</P><P>{task.elementlabel}</P>
-          <P>Desc: {task.elementDescription}</P><P>{task.elementFormat}</P>
-          <P>Time: {task.elementDuration}</P><P>{task.elementCategory}</P>
-          <P>{task.elementSubCategory}</P><P>{task.elementMarket}</P>
-          <P>CogRating: {task.elementCogRating}</P><P>PhysRating: {task.elementPhysRating}</P>
-          <P>{task.elementLink}</P>
-
+          <P>{elementnumber}</P>
+          <P>{elementlabel}</P>
+          <P>Desc: {elementDescription}</P>
+          <P>{elementFormat}</P>
+          <P>Time: {elementDuration}</P>
+          <P>{elementCategory}</P>
+          <P>{elementSubCategory}</P>
+          <P>{elementMarket}</P>
+          <P>CogRating: {elementCogRating}</P>
+          <P>PhysRating: {elementPhysRating}</P>
+          <P>{elementLink}</P>
         </Container>
       )}
     </Draggable>
