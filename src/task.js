@@ -15,14 +15,27 @@ const P = styled.p`
  margin: 2px  10px 2px 5px;
 `
 
-const Task = ({ task, index }) => {
+const Task = ({
+  _id,
+  elementCategory,
+  elementCogRating,
+  elementDescription,
+  elementDuration,
+  elementFormat,
+  elementlabel,
+  elementLink,
+  elementMarket,
+  elementnumber,
+  elementPhysRating,
+  elementSubCategory,
+  index,
+}) => {
   return (
-    <Draggable draggableId={task._id} index={index}>
-      {({ draggableProps, dragHandleProps, innerRef }, snapshot) => (
+    <Draggable draggableId={_id} index={index}>
+      {({ draggableProps, dragHandleProps, innerRef }, { isDragging }) => (
         <Container
-          {...{ ...draggableProps, ...dragHandleProps }}
+          {...{ ...draggableProps, ...dragHandleProps, isDragging }}
           ref={innerRef}
-          isDragging={snapshot.isDragging}
         >
           <P>{task.elementnumber}</P><P>{task.elementlabel}</P>
           <P>Desc: {task.elementDescription}</P><P>{task.elementFormat}</P>
