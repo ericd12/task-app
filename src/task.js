@@ -10,7 +10,7 @@ const Container = styled.div`
   background-color: ${props => (props.isDragging ? "lightgreen" : "white")};
 `;
 
-const Para = styled.p`
+const P = styled.p`
  display: inline-block;
  margin: 2px  10px 2px 5px;
 `
@@ -24,13 +24,13 @@ const Task = ({ task, index }) => {
           ref={innerRef}
           isDragging={snapshot.isDragging}
         >
-          <Para>{task.elementnumber}</Para><Para>{task.elementlabel}</Para>  
-          <Para>Desc: {task.elementDescription}</Para><Para>{task.elementFormat}</Para>  
-          <Para>Time: {task.elementDuration}</Para><Para>{task.elementCategory}</Para>  
-          <Para>{task.elementSubCategory}</Para><Para>{task.elementMarket}</Para>  
-          <Para>CogRating: {task.elementCogRating}</Para><Para>PhysRating: {task.elementPhysRating}</Para>  
-          <Para>{task.elementLink}</Para>
-          
+          <P>{task.elementnumber}</P><P>{task.elementlabel}</P>
+          <P>Desc: {task.elementDescription}</P><P>{task.elementFormat}</P>
+          <P>Time: {task.elementDuration}</P><P>{task.elementCategory}</P>
+          <P>{task.elementSubCategory}</P><P>{task.elementMarket}</P>
+          <P>CogRating: {task.elementCogRating}</P><P>PhysRating: {task.elementPhysRating}</P>
+          <P>{task.elementLink}</P>
+
         </Container>
       )}
     </Draggable>
